@@ -33,6 +33,8 @@ public:
   *
   */
   UDP_Manager();
+  UDP_Manager(std::condition_variable* _cond_var, bool* _isDataAvailable,
+    std::vector<std::string> *_listMessagesParent);
 
   ~UDP_Manager();
 
@@ -42,7 +44,11 @@ private:
   bool isDataAvailable;
   Server_UDP* serv;
   void run();
-  std::thread* threadManagerDBus;
+  std::thread* threadManagerUDP;
+
+  bool* parentWatcher;
+  std::condition_variable* cond_var_Parent;
+  std::vector<std::string> *listMessagesParent;
 };
 
 #endif //UDP_MANAGER_H

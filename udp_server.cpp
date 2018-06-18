@@ -19,12 +19,11 @@ void Server_UDP::die(char *s)
 int Server_UDP::init_server()
 {
   struct sockaddr_in si_me;
-  if ((sock=socket(AF_INET, SOCK_STREAM, IPPROTO_UDP)) == -1)
+  if ((sock=socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1)
   {
     die("socket");
   }
-  int enable = 1;
-  setsockopt(sock, SOL_SOCKET, SO_REUSEPORT | SO_REUSEADDR, &enable, sizeof(enable));
+
   // zero out the structure
   memset((char *) &si_me, 0, sizeof(si_me));
   si_me.sin_family = AF_INET;
